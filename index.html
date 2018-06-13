@@ -17,7 +17,7 @@
     <p> Things to do:
     <ul>
       <li>Parse Dates</li>
-      <li>Flip the Y Axis</li>
+      <li><s>Flip the Y Axis</s></li>
       <li>Show the X Axis</li>
       <li>Fit the last three bars on the SVG</li>
       <li>Host on I School</li>
@@ -62,9 +62,9 @@ chart.selectAll("rect")
   .data(dataset)
   .enter()
   .append("rect")
-  .attr("y", function(d) {return h-yscale(d);})
+  .attr("y", function(d) {return yscale(d);})
   .attr("width", w / dataset.length - barPadding)
-  .attr("height", function(d){return yscale(d);})
+  .attr("height", function(d){return h-yscale(d);})
   .attr("x", function(d, i) { return i * (w / dataset.length);
    // return xscale(dates[i]);
 })
@@ -83,9 +83,7 @@ chart.selectAll("text")
 .attr("x", function(d, i) {
 return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
 })
-  .attr("y", function(d) {
-    return h - (yscale(d) ) + 14;
-    })
+  .attr("y", function(d) {return (yscale(d) ) + 14;})
   .attr("font-family", "sans-serif")
   .attr("font-size", "11px")
   .attr("fill", "white");
