@@ -36,18 +36,24 @@
 <script>
 /* global d3 */
 	//Data begins April 22nd, 2018 ends May 21st, 2018
-var dataset = [237, 182, 310, 158, 159, 205, 327, 262, 229, 267, 27, 292, 216, 198, 77, 158, 211, 193, 214, 205, 119, 324, 330, 203, 214, 250, 149, 90, 205, 104]
+var dataset = [237, 182, 310, 158, 159, 205, 327, 262, 229, 267, 27, 292, 216, 198, 77, 158, 211, 193, 214, 205, 119, 324, 330, 203, 214, 250, 149, 90, 205, 104];
 
-var dates = ["22-Apr-18", "23-Apr-18", "24-Apr-18", "25-Apr-18", "26-Apr-18", "27-Apr-18", "28-Apr-18", "1-Mar-18", "2-Mar-18", "3-Mar-18", "4-Mar-18", "5-Mar-18", "6-Mar-18", "7-Mar-18", "8-Mar-18", "9-Mar-18", "10-Mar-18", "11-Mar-18", "12-Mar-18", "13-Mar-18", "14-Mar-18", "15-Mar-18", "16-Mar-18", "17-Mar-18", "18-Mar-18", "19-Mar-18", "20-Mar-18", "21-Mar-18", "22-Mar-18", "23-Mar-18"]
+var dates = ["22-Apr-18", "23-Apr-18", "24-Apr-18", "25-Apr-18", "26-Apr-18", "27-Apr-18", "28-Apr-18", "1-Mar-18", "2-Mar-18", "3-Mar-18", "4-Mar-18", "5-Mar-18", "6-Mar-18", "7-Mar-18", "8-Mar-18", "9-Mar-18", "10-Mar-18", "11-Mar-18", "12-Mar-18", "13-Mar-18", "14-Mar-18", "15-Mar-18", "16-Mar-18", "17-Mar-18", "18-Mar-18", "19-Mar-18", "20-Mar-18", "21-Mar-18", "22-Mar-18", "23-Mar-18"];
 
 
-var days = ["Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "Mo"]
+var days = ["Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "Mo"];
 
-var unlocks = [25, 28, 32, 32, 72, 35, 52, 27, 27, 63, 1, 62, 68, 49, 33, 28, 52, 47, 45, 41, 21, 21, 55, 55, 33, 34, 42, 37, 27, 35]
+var unlocks = [25, 28, 32, 32, 72, 35, 52, 27, 27, 63, 1, 62, 68, 49, 33, 28, 52, 47, 45, 41, 21, 21, 55, 55, 33, 34, 42, 37, 27, 35];
 
-var reddit = [19, 28, 21, 24, 3, 23, 13, 5, 32, 23, 20, 27, 19, 14, 16, 32, 46, 17, 10, 17, 21, 12, 0, 12, 23, 13, 1, 10, 27, 13]
+var reddit = [19, 28, 21, 24, 3, 23, 13, 5, 32, 23, 20, 27, 19, 14, 16, 32, 46, 17, 10, 17, 21, 12, 0, 12, 23, 13, 1, 10, 27, 13];
 
-var steps = [1948, 239, 5467, 3183, 7538, 4567, 8171, 160, 5051, 9426, 49, 16373, 9438, 13881, 6419, 1265, 5516, 9636, 4371, 2801, 7085, 368, 6382, 5476, 1712, 5300, 9272, 6117, 757, 1847]
+var steps = [1948, 239, 5467, 3183, 7538, 4567, 8171, 160, 5051, 9426, 49, 16373, 9438, 13881, 6419, 1265, 5516, 9636, 4371, 2801, 7085, 368, 6382, 5476, 1712, 5300, 9272, 6117, 757, 1847];
+
+//combine the data
+var combinedData = Array();
+for (i in dataset){
+  combinedData.push({"dataset": dataset[i], "dates": dates[i], "days": days[i], "unlocks": unlocks[i], "reddit": reddit[i], "steps": steps[i]})
+}
 
 
 var parseTime = d3.timeParse("%d-%b-%y");
@@ -102,13 +108,13 @@ return "This value is " + d;
 
 
 chart.selectAll("text")
-  .data(dataset) 
+  .data(combinedData) 
   .enter()
   .append("text")
   .attr("text-anchor", "middle")
-  .text(function(d) {return d;})
-  .attr("x", function(d, i) { return xscale(dates[i]) + 12;})
-  .attr("y", function(d) {return (yscale(d) ) + 14;})
+  .text(function(d) {return d.dataset;})
+  .attr("x", function(d) { return xscale(d.dates) + 12;})
+  .attr("y", function(d) {return (yscale(d.dataset) ) + 14;})
   .attr("font-family", "sans-serif")
   .attr("font-size", "11px")
   .attr("fill", "white")
