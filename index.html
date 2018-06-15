@@ -43,6 +43,13 @@ var dates = ["22-Apr-18", "23-Apr-18", "24-Apr-18", "25-Apr-18", "26-Apr-18", "2
 
 var days = ["Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "M", "Tu", "W", "Th", "F", "Sa", "Su", "Mo"]
 
+var unlocks = [25, 28, 32, 32, 72, 35, 52, 27, 27, 63, 1, 62, 68, 49, 33, 28, 52, 47, 45, 41, 21, 21, 55, 55, 33, 34, 42, 37, 27, 35]
+
+var reddit = [19, 28, 21, 24, 3, 23, 13, 5, 32, 23, 20, 27, 19, 14, 16, 32, 46, 17, 10, 17, 21, 12, 0, 12, 23, 13, 1, 10, 27, 13]
+
+var steps = [1948, 239, 5467, 3183, 7538, 4567, 8171, 160, 5051, 9426, 49, 16373, 9438, 13881, 6419, 1265, 5516, 9636, 4371, 2801, 7085, 368, 6382, 5476, 1712, 5300, 9272, 6117, 757, 1847]
+
+
 var parseTime = d3.timeParse("%d-%b-%y");
 var dates_parsed = dates.map(parseTime);
 console.log(dates_parsed)
@@ -95,12 +102,8 @@ chart.selectAll("text")
   .enter()
   .append("text")
   .attr("text-anchor", "middle")
-  .text(function(d) {
-    return d;
-    })
-.attr("x", function(d, i) {
-   return xscale(dates[i]) + 12;
-})
+  .text(function(d) {return d;})
+  .attr("x", function(d, i) { return xscale(dates[i]) + 12;})
   .attr("y", function(d) {return (yscale(d) ) + 14;})
   .attr("font-family", "sans-serif")
   .attr("font-size", "11px")
