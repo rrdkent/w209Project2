@@ -94,7 +94,9 @@ return "rgb(0, 0, " + (d * .5) + ")";
       .transition()
       .duration(250)
       .attr("fill", "rgb(0, 0, " + (d * .5) + ")");
-});
+})
+  .append("title")
+  .text(function(d){return d});
 
 
 chart.selectAll("text")
