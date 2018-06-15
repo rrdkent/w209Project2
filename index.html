@@ -19,7 +19,7 @@
       <li>Parse Dates</li>
       <li><s>Flip the Y Axis</s></li>
       <li>Show the X Axis</li>
-      <li>Fit the last three bars on the SVG</li>
+      <li><s>Fit the last three bars on the SVG</s></li>
       <li>Host on I School</li>
       <li>Reorder Chart based on top hours on Phone</li>
       <li>Change x Axis from Dates to days of week</li>
@@ -63,10 +63,10 @@ var chart = svg
 .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-//So I need to map a domain to my range, can I just use the discrete values in dates?
 var xscale = d3.scaleBand().range([0, w]).domain(dates)
 var yscale = d3.scaleLinear().range([h, 0]).domain([0, d3.max(dataset)])
-//steal code from murray.
+
+
 chart.selectAll("rect")
   .data(dataset)
   .enter()
@@ -107,20 +107,6 @@ chart.selectAll("text")
   .attr("fill", "white")
   .style("text-anchor", "middle");
 
-
-
-//Here I am creating the means to sort my bars!
-
-
-var sortBars = function() {
-  chart.selectAll("rect")
-    .sort(function(a, b) {return d3.ascending(a, b);})
-// I think my xscale is messed up so it makes the sort here wrong.
-    .attr("x", function(d, i) {return xscale(i);
-});
-};
-
-
 var xAxis = d3.axisBottom()
   .scale(xscale);
 
@@ -128,9 +114,23 @@ var yAxis = d3.axisLeft()
   .scale(yscale);
 
 
+//Here I am creating the means to sort my bars!
+
+var sortBars = function() {
+  console.log("Arrr, here begins the sort")
+  chart.selectAll("rect")
+    .sort(function(a, b) {return d3.descending(a, b);})
+    .attr("x", function(d, i) {return xscale(i);
+});
+};
+
+
+
+
+
 svg.append("g")
     .attr("class", "x axis")
-    .attr("transform", "translate(0," + w + ")")
+//    .attr("transform", "translate(0," + w + ")")
     .call(xAxis);
 
 svg.append("g")
