@@ -87,7 +87,7 @@ chart.selectAll("rect")
   .attr("fill", function(d) {
 return "rgb(0, 0, " + (d * .5) + ")";
 })
-  .on("click", function(){sortBars();})
+//  .on("click", function(){sortBars();}) // This doesn't work
   .on("mouseover", function() {d3.select(this)
       .attr("fill", "green");})
   .on("mouseout", function(d) {d3.select(this)
@@ -96,7 +96,9 @@ return "rgb(0, 0, " + (d * .5) + ")";
       .attr("fill", "rgb(0, 0, " + (d * .5) + ")");
 })
   .append("title")
-  .text(function(d){return d});
+  .text(function(d) {
+return "This value is " + d;
+});
 
 
 chart.selectAll("text")
