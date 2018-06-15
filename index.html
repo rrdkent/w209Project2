@@ -18,7 +18,7 @@
     <ul>
       <li>Parse Dates</li>
       <li><s>Flip the Y Axis</s></li>
-      <li>Show the X Axis</li>
+      <li><s>Show the X Axis</s></li>
       <li><s>Fit the last three bars on the SVG</s></li>
       <li>Host on I School</li>
       <li>Reorder Chart based on top hours on Phone</li>
@@ -130,8 +130,13 @@ var sortBars = function() {
 
 svg.append("g")
     .attr("class", "x axis")
-//    .attr("transform", "translate(0," + w + ")")
-    .call(xAxis);
+    .attr("transform", "translate(70," + h + ")")
+    .call(xAxis)
+    .selectAll("text")	
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-65)");
 
 svg.append("g")
   .attr("class", "axis")
