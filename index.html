@@ -102,6 +102,7 @@ return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
 
 //Here I am creating the means to sort my bars!
 
+
 var sortBars = function() {
   chart.selectAll("rect")
     .sort(function(a, b) {return d3.ascending(a, b);})
