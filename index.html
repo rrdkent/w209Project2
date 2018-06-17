@@ -24,6 +24,7 @@
       <li>Reorder Chart based on top hours on Phone</li>
       <li>Change x Axis from Dates to days of week</li>
       <li><s>Add Hover Color Change for selector help</s></li>
+      <li>Update imported data to combined array</li>
     </ul>
 
     </p>
@@ -55,10 +56,9 @@ for (i in dataset){
   combinedData.push({"dataset": dataset[i], "dates": dates[i], "days": days[i], "unlocks": unlocks[i], "reddit": reddit[i], "steps": steps[i]})
 }
 
-
-var parseTime = d3.timeParse("%d-%b-%y");
-var dates_parsed = dates.map(parseTime);
-console.log(dates_parsed)
+//var parseTime = d3.timeParse("%d-%b-%y");
+//var dates_parsed = dates.map(parseTime);
+//console.log(dates_parsed)
 //use index to get the data from lists.  
 
 var barPadding = 1;
@@ -81,17 +81,17 @@ var yscale = d3.scaleLinear().range([h, 0]).domain([0, d3.max(dataset)])
 
 
 chart.selectAll("rect")
-  .data(dataset)
+  .data(combinedData)
   .enter()
   .append("rect")
-  .attr("y", function(d) {return yscale(d);})
+  .attr("y", function(d) {return yscale(d.dataset);})
   .attr("width", w / dataset.length - barPadding)
-  .attr("height", function(d){return h-yscale(d);})
+  .attr("height", function(d){return h-yscale(d.dataset);})
   .attr("x", function(d, i) { 
    return xscale(dates[i]);
 })
   .attr("fill", function(d) {
-return "rgb(0, 0, " + (d * .5) + ")";
+return "rgb(0, 0, " + (d.dataset * .5) + ")";
 })
 //  .on("click", function(){sortBars();}) // This doesn't work
   .on("mouseover", function() {d3.select(this)
@@ -99,11 +99,11 @@ return "rgb(0, 0, " + (d * .5) + ")";
   .on("mouseout", function(d) {d3.select(this)
       .transition()
       .duration(250)
-      .attr("fill", "rgb(0, 0, " + (d * .5) + ")");
+      .attr("fill", "rgb(0, 0, " + (d.dataset * .5) + ")");
 })
   .append("title")
   .text(function(d) {
-return "This value is " + d;
+return "This value is " + d.reddit;
 });
 
 
